@@ -1,0 +1,11 @@
+Primeiro surgiu o hibernate pra solucionar problemas do JDBC
+O JDBC utilizava classes DAO para acessar o banco de dados, porém eram códigos muito verbosos
+e também ao modificar um coisa no banco de dados isso implicava diretamente no código da aplicação
+Para contornar esses problemas surgiu o Hibernate (biblioteca) como uma ferramenta que já implementava todos
+os drivers de banco de dados e também classes de acesso aos bancos com pouca configuração e pouco código.
+Porém depois que vc utilizava o hibernate no seu projeto vc não poderia mais utilizar outra biblioteca, aliás
+poderia mas a reimplementação poderia ser mto exaustiva.
+Para contornar esse problema surgiu o JPA que é uma abstração de como os acessos devem ser feitos.
+O JPA define a ORM (Object Relational Mapper) que é a ligação entre o mundo de orientação a objetos e o bd relacional.
+A partir do JPA as outras bibliotecas passam a ser a sua implementação, o Hibernate implementa o JPA, assim como o OpenJPA etc.
+Ou seja, quando nos chamamos o JPA podemos mudar de biblioteca pois o nosso código chama o JPA e não as implementações.
