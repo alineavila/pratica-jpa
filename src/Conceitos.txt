@@ -9,3 +9,36 @@ Para contornar esse problema surgiu o JPA que é uma abstração de como os aces
 O JPA define a ORM (Object Relational Mapper) que é a ligação entre o mundo de orientação a objetos e o bd relacional.
 A partir do JPA as outras bibliotecas passam a ser a sua implementação, o Hibernate implementa o JPA, assim como o OpenJPA etc.
 Ou seja, quando nos chamamos o JPA podemos mudar de biblioteca pois o nosso código chama o JPA e não as implementações.
+
+
+-------- PERSISTENCE.XML ---------
+Dentro do arquivo persistence.xml ficam as configurações do jpa.
+A tag raiz é a persistence, dentro dela tem a tag persistence-unit que damos um nome qualquer e dentro
+dessa tag há também o transaction-type com dois valores possíveis JTA ou RESOURCE_LOCAL.
+A opção JTA é para quando utilizamos um servidor de aplicação em cenários que o proprio servidor
+cuida da transação. Nesse caso é uma aplicação stand-alone, sem servidor de aplicação então será
+RESOURCE_LOCAL.
+
+Obs.: para cada banco que nossa aplicação usa é uma tag persistence-unit
+
+Dentro da tag persistence-unit teremos a tar properties e cada property vai ter um name e um value.
+Algumas propriedades são obrigatórias que precisamos informar para a JPA e são propriedades exclusivas da JPA
+a property é o javax.persistence e a partir daí a configuração que queremos fazer, por exemplo
+javax.persistence.jdbc.driver para configurar o driver do banco
+javax.persistence.jdbc.url para configurar a url do banco
+javax.persistence.jdbc.user para configurar o usuario do banco
+javax.persistence.jdbc.password para configurar a senha
+
+Existe também configurações específicas da implementação da JPA
+
+-------- ENTIDADE ---------
+Para a JPA entender que uma classe é também uma tabela é preciso fazer a anotação @Entity e caso a tabela
+não tenha o mesmo nome da classe, usamos a anotação @Table(name="nome da tabela")
+O JPA também assume que o atributo da classe tambem é o nome da coluna, caso não seja, usa-se a anotação
+@Column(name="")
+Obrigatoriamente também devemos dizer qual o ID com a anotação @Id,, e com a anotação @GeneratedValue usamos
+para dizer para JPA que quem cuida desse valor é o bando
+Toda vez que queremos acessar o bd com a jpa usamos a interface chamada EntityManager, para criar
+uma EntityManager usamos a EntityManagerFactory
+
+
