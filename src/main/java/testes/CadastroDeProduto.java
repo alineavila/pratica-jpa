@@ -1,6 +1,10 @@
 package testes;
 
+import modelo.Categoria;
+import modelo.CategoriaDao;
 import modelo.Produto;
+import modelo.ProdutoDao;
+import util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,13 +17,17 @@ public class CadastroDeProduto {
         celular.setNome("xiaomi");
         celular.setDescricao("Muito Legal");
         celular.setPreco(new BigDecimal("800"));
+        Categoria celulares = new Categoria("CELULARES");
+        celular.setCategoria(celulares);
 
-        EntityManagerFactory factory = Persistence
-                .createEntityManagerFactory("loja");
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
+        ProdutoDao produtoDao = new ProdutoDao(em);
+        CategoriaDao categoriaDao = new CategoriaDao(em);
+
         em.getTransaction().begin();
         // isso pq o nosso transactiontype está como RESOURCE-LOCAL e dai nos abrimos e fechamos a transação manualmente
-        em.persist(celular);
+        categoriaDao.cadastrar(celulares);
+        produtoDao.cadastrar(celular);
         em.getTransaction().commit();
         em.close();
     }
